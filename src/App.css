@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  background-image: linear-gradient(to top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
