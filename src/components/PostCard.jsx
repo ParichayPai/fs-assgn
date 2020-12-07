@@ -85,9 +85,9 @@ export default function SinglePost(props){
         history.push("/");
     }
 
-    const postComment = (name, postId, commentData,userName) => {
+    const postComment = async (name, postId, commentData,userName) => {
         console.log(userName);
-        Axios.post(backendUrl+"postComment/", {
+        await Axios.post(backendUrl+"postComment/", {
             postId,
             name,
             commentData,
