@@ -6,6 +6,7 @@ import {Typography} from "@material-ui/core";
 import Login from "./Login"
 import Signup from "./Signup"
 import Button from "@material-ui/core/Button";
+const url = "https://klenty-backend.herokuapp.com/api/v1/" 
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props){
-    console.log(props);
+    // console.log(props);
 
     // const [userData, setUserData] = React.useState("Login!");
     const [openLoginForm, setOpenLoginForm] = React.useState(false);
@@ -87,58 +88,61 @@ export default function Header(props){
         setLoginPassword(password);
     }
 
-    const register = () => {
-        Axios({
+    const register = async () => {
+        await Axios({
             method: "POST",
             data: {
                 username: registerUsername,
                 password: registerPassword,
             },
             withCredentials: true,
-            url: "https://klenty-backend.herokuapp.com/v1/register",
+            url: url+"register",
         }).then((res) => console.log(res));
     };
-    const login = () => {
-        Axios({
+    const login = async () => {
+        await Axios({
             method: "POST",
             data: {
                 username: loginUsername,
                 password: loginPassword,
             },
             withCredentials: true,
-            url: "https://klenty-backend.herokuapp.com/v1/login",
-        }).then((res) => console.log(res)).then(props.getUser())
+            url:url+"login",
+        }).then((res) => console.log(res)) //.then(props.getUser())
             .catch(err => console.log(err));
     };
 
-        // const getUser = () => {
-        //     Axios({
-        //         method: "GET",
-        //         withCredentials: true,
-        //         url: "http://localhost:5000/api/v1/user",
-        //     }).then((res) => {
-        //         if(res.data !== "No User Exists" || !res.data){
-        //             props.handleUser("Login");
-        //             console.log(res.data);
-        //         }
-        //         // else{
-        //         //     props.handleUser("Login");
-        //         //     console.log(res.data);
-        //         // }
-        //         props.handleUser(res.data);
-        //     });
-        // };
+    const getUser = async () => {
+        await Axios({
+            method: "GET",
+            withCredentials: true,
+            url: url+"user",
+        }).then((res) => {
+            if(res.data === "No User Exists" || res.data === ""){
+                props.handleUser("Login");
+                console.log(res.data);
+                return;
+            }
+            props.handleUser(res.data);
+            console.log("hi", res.data);
+            // if(res.data !== "No User Exists"){
+            //     handleUser(res.data);
+            // }
+            // // setUserData(res.data);
+            // console.log(res);
+        });
+    };
 
     const logout = () => {
         props.logout();
-        if(window.location.href !== "/"){
+        // if(window.location.href !== "/"){
             history.push("/");
-        }
+        // }
     }
 
     return(
         <div className={style.header}>
-            {/*<Button onClick={props.getUser}>getUser</Button>*/}
+            <Button onClick={getUser}>getUser</Button>
             <Typography variant={"h3"} className={style.title} onClick={goToHome} >Klenty Assignment</Typography>
             <span id={"logout"} className={style.logout} onClick={logout}>Logout</span>
             <span id="profile" className={style.login} onClick={loginForm}>{props.userdata}</span>

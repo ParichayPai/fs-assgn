@@ -51,8 +51,8 @@ export default function Home(){
             .catch(err => console.log(err));
     }
 
-    const getUser = () => {
-        Axios({
+    const getUser = async () => {
+        await Axios({
             method: "GET",
             withCredentials: true,
             url: backendUrl+"user",
@@ -79,9 +79,9 @@ export default function Home(){
         // }
     }, []);
 
-    const logout = () => {
+    const logout = async () => {
         setUser("Login");
-        Axios({
+        await Axios({
             method: "GET",
             withCredentials: true,
             url: backendUrl+"logout",
