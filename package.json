@@ -15,7 +15,6 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
