@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "5.7.1",
+    "node": "9.5.0"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
@@ -14,9 +18,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "build": "npm i && npm start",
-    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
