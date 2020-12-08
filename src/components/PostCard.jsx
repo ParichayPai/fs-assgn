@@ -42,7 +42,7 @@ export default function PostCard(props){
     const id = props.data._id;
     const currentUser = props.currentUser;
 
-    console.log(props);
+    // console.log(props);
     const handleClickOnCard = (id, title, description, index, saveData, currentUser, getUser, logout) => {
         history.push({
             pathname: `/post/${index}/`,
