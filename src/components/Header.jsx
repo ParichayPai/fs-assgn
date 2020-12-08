@@ -120,7 +120,7 @@ export default function Header(props){
         }).then((res) => {
             if(res.data === "No User Exists" || res.data === ""){
                 props.handleUser("Login");
-                console.log(res.data);
+                console.log("No user",res.data);
                 return;
             }
             props.handleUser(res.data);
