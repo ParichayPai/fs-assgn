@@ -60,7 +60,8 @@ export default function Header(props){
     }
 
     const loginForm = () => {
-        setOpenLoginForm(!openLoginForm)
+        setOpenLoginForm(!openLoginForm);
+        login();
     }
 
     const signUpForm = () => {
