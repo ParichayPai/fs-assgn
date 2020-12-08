@@ -52,8 +52,8 @@ export default function Home(){
             .catch(err => console.log(err));
     }
 
-    const getUser = async () => {
-        await Axios({
+    const getUser =  () => {
+         Axios({
             method: "GET",
             withCredentials: true,
             url: "https://klenty-backend.herokuapp.com/api/v1/user",
