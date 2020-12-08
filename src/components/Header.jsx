@@ -100,6 +100,7 @@ export default function Header(props){
         }).then((res) => console.log(res));
     };
     const login = async () => {
+        console.log(loginUsername+" "+loginPassword);
         await Axios({
             method: "POST",
             data: {
