@@ -60,7 +60,7 @@ export default function Home(){
         }).then((res) => {
             if(res.data === "No User Exists" || res.data === ""){
                 handleUser("Login");
-                console.log(res.data);
+                console.log("No user",res.data);
                 return;
             }
             handleUser(res.data);
