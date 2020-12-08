@@ -112,7 +112,7 @@ export default function Header(props){
         await Axios({
             method: "GET",
             withCredentials: true,
-            url: url+"user",
+            url: "https://klenty-backend.herokuapp.com/api/v1/user",
         }).then((res) => {
             if(res.data === "No User Exists" || res.data === ""){
                 props.handleUser("Login");
