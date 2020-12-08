@@ -17,7 +17,7 @@ export default function Login(props) {
         props.setPassword("");
     };
 
-    const login = async () => {
+    const loginFunc = async () => {
         props.login() //.then(props.getUser());
         handleClose();
         // window.location.reload();
@@ -59,7 +59,7 @@ export default function Login(props) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={login} color="secondary">
+                    <Button onClick={loginFunc} color="secondary">
                         Save
                     </Button>
                     <Button onClick={() => {handleClose(); props.signUp()}} variant="contained">
