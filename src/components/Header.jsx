@@ -67,11 +67,6 @@ export default function Header(props){
         setOpenSignUpForm(!openSignUpForm);
     }
 
-    // const handleUserData = (name) => {
-    //     setUserData(name);
-    //     props.handleUser(name);
-    // }
-
     const handleRegisterUsername = (name) => {
         setRegisterUsername(name);
     }
