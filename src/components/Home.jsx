@@ -4,7 +4,7 @@ import Header from "./Header"
 import AddButton from "./AddButton"
 import PostCard from "./PostCard"
 import Axios from "axios";
-const backendUrl = "http://localhost:5000/api/v1/"  //"https://klenty-backend.herokuapp.com/api/v1/"; 
+const backendUrl = "https://parichay-fs-backend.herokuapp.com/api/v1/"     //"http://localhost:5000/api/v1/"  
 
 const useStyles = makeStyles((theme) => ({
    home:{

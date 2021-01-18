@@ -6,7 +6,7 @@ import {Typography} from "@material-ui/core";
 import Login from "./Login"
 import Signup from "./Signup"
 import Button from "@material-ui/core/Button";
-const url = "http://localhost:5000/api/v1/" //"https://klenty-backend.herokuapp.com/api/v1/" 
+const url =  "https://parichay-fs-backend.herokuapp.com/api/v1/" // "http://localhost:5000/api/v1/"
 
 const useStyles = makeStyles((theme) => ({
     header:{
