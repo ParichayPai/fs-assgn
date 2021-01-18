@@ -35,14 +35,16 @@ const useStyles = makeStyles(() => ({
     },
     timeStamp:{
         fontSize: 20,
-        marginTop: 30,
-        marginLeft: 150
+        marginTop: 10,
+        marginLeft: "auto",
+        marginRight: 10
     }
 }))
 
 export default function Comment(props){
     const style = useStyles();
     const {username, description, timeStamp} = props.data;
+    // console.log(timeStamp.toLocaleString());
     return (
         <div className={style.comment}>
             <div className={style.header}>

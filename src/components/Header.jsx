@@ -6,7 +6,7 @@ import {Typography} from "@material-ui/core";
 import Login from "./Login"
 import Signup from "./Signup"
 import Button from "@material-ui/core/Button";
-const url = "https://klenty-backend.herokuapp.com/api/v1/" 
+const url = "http://localhost:5000/api/v1/" //"https://klenty-backend.herokuapp.com/api/v1/" 
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -14,30 +14,38 @@ const useStyles = makeStyles((theme) => ({
         height: 60,
     },
     title: {
-        marginLeft: 450,
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // marginLeft: 400,
+        paddingLeft: 150,
+        margin: "auto",
         marginTop: 5,
-        fontFamily: 'Josefin Sans',
+        fontFamily: 'Staatliches, cursive',
         cursor: "pointer"
     },
     login:{
         fontSize: 20,
-        marginLeft: "auto",
+        marginLeft: 50,
+        // marginLeft: "auto",
         marginTop: 10,
         marginRight: 30,
         cursor: "pointer",
         border: "1px solid grey",
-        borderRadius: 5,
-        height: 40,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        borderRadius: 25,
+        height: 50,
+        // display: "flex",
+        // justifyContent: "center",
+        // alignItems: "center",
     },
     logout: {
         fontSize: 20,
-        marginLeft: 280,
-        marginRight: 10,
-        marginTop: 20,
+        // marginLeft: "auto",
+        // marginLeft: 600,
+        marginTop: 10,
         cursor: "pointer",
+        border: "1px solid grey",
+        borderRadius: 5
     }
 }));
 
@@ -51,6 +59,8 @@ export default function Header(props){
     const [registerPassword, setRegisterPassword] = React.useState("");
     const [loginUsername, setLoginUsername] = React.useState("");
     const [loginPassword, setLoginPassword] = React.useState("");
+
+    const [username, setUsername] = React.useState("Login");
 
     let style = useStyles();
     const history = useHistory();
@@ -95,7 +105,6 @@ export default function Header(props){
         }).then((res) => console.log(res));
     };
     const login = async () => {
-        console.log(loginUsername+" "+loginPassword);
         await Axios({
             method: "POST",
             data: {
@@ -104,49 +113,71 @@ export default function Header(props){
             },
             withCredentials: true,
             url:url+"login",
-        }).then((res) => console.log(res)) //.then(props.getUser())
+        })
+            .then(props.getUser())
+            .then(window.location.reload()) 
             .catch(err => console.log(err));
     };
 
-    const getUser = () => {
-        Axios({
-            method: "GET",
-            withCredentials: true,
-            url: "https://klenty-backend.herokuapp.com/api/v1/user",
-        }).then((res) => {
-            if(res.data === "No User Exists" || res.data === ""){
-                props.handleUser("Login");
-                console.log("No user",res.data);
-                return;
-            }
-            props.handleUser(res.data);
-            console.log("hi", res.data);
-            // if(res.data !== "No User Exists"){
-            //     handleUser(res.data);
-            // }
-            // // setUserData(res.data);
-            // console.log(res);
-        });
-    };
+    // const getUser = () => {
+    //     Axios({
+    //         method: "GET",
+    //         withCredentials: true,
+    //         url: url+"user",
+    //     }).then((res) => {
+    //         // console.log(res.data)
+    //         if(!res.data.username){ //res.data === "No User Exists" || 
+    //             // props.handleUser("Login");
+    //             setUsername("Login");
+    //             console.log("No user ",res.data);
+    //             return;
+    //         }
+    //         setUsername(res.data.username);
+    //         // console.log(username+" "+res.data.username);
+    //         // props.handleUser(res.data.username);
+    //         // console.log("hi", res.data);
+    //         // if(res.data !== "No User Exists"){
+    //         //     handleUser(res.data);
+    //         // }
+    //         // // setUserData(res.data);
+    //         // console.log(res);
+    //     });
+    // };
 
-    const logout = () => {
+    const logoutFunc = () => {
         props.logout();
+        setUsername("Login");
+        window.location.reload();
         // if(window.location.href !== "/"){
-            history.push("/");
+            // history.push("/");
         // }
     }
 
     return(
         <div className={style.header}>
-            <Button onClick={getUser}>getUser</Button>
-            <Typography variant={"h3"} className={style.title} onClick={goToHome} >Klenty Assignment</Typography>
-            <span id={"logout"} className={style.logout} onClick={logout}>Logout</span>
-            <span id="profile" className={style.login} onClick={loginForm}>{props.userdata}</span>
+            <Button onClick={props.getUser}>getUser</Button> 
+            <Typography variant={"h3"} className={style.title} onClick={goToHome} >Bloggy!</Typography>
+            <Button 
+                variant="contained" 
+                id={"logout"} 
+                className={style.logout} 
+                onClick={logoutFunc} 
+                disabled={props.username === "Login"}>
+                    Logout
+            </Button>
+            <Button 
+                variant="contained" 
+                color="primary" 
+                id="profile" 
+                className={style.login} 
+                onClick={loginForm}>
+                    {props.username}
+            </Button>
             {openLoginForm ?
                 <Login
                     open={openLoginForm}
                     toggle={loginForm}
-                    username={loginUsername}
+                    username={username}
                     setUsername={handleLoginUsername}
                     password={loginPassword}
                     setPassword={handleLoginPassword}

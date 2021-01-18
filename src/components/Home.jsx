@@ -1,14 +1,10 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import Header from "./Header"
 import AddButton from "./AddButton"
 import PostCard from "./PostCard"
 import Axios from "axios";
-const backendUrl = "https://klenty-backend.herokuapp.com/api/v1/"; 
-
-
-//Hello There
+const backendUrl = "http://localhost:5000/api/v1/"  //"https://klenty-backend.herokuapp.com/api/v1/"; 
 
 const useStyles = makeStyles((theme) => ({
    home:{
@@ -21,13 +17,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home(){
-    const history = useHistory();
     const style = useStyles();
 
     const [postList, setPostList] = React.useState([]);
     const [user, setUser] = React.useState("Login");
 
     const handleUser = (name) => {
+        // console.log(name);
+        // if(name === "Login"){
+        //     setUser(name);
+        //     return
+        // }
         setUser(name);
     }
 
@@ -38,8 +38,9 @@ export default function Home(){
             .then(res2 => {setPostList(res2)});
     }
 
-    React.useEffect(() => {
-        getData();
+    React.useEffect(async () => {
+        await getData();
+        await getUser();
     }, []);
 
 
@@ -56,15 +57,24 @@ export default function Home(){
          Axios({
             method: "GET",
             withCredentials: true,
-            url: "https://klenty-backend.herokuapp.com/api/v1/user",
+            url: backendUrl+"user",
         }).then((res) => {
-            if(res.data === "No User Exists" || res.data === ""){
+            // console.log(res.data);
+            // if(res.data === "No User Exists" || !res.data.username){
+            //     handleUser("Login");
+            //     console.log("No user",res.data);
+            //     return;
+            // }
+            console.log(res.data)
+
+            if(!res.data.username){
                 handleUser("Login");
                 console.log("No user",res.data);
                 return;
             }
-            handleUser(res.data);
-            console.log("hi", res.data);
+            // handleUser("Login1");
+            handleUser(res.data.username);
+            // console.log("hi", res.data);
             // if(res.data !== "No User Exists"){
             //     handleUser(res.data);
             // }
@@ -73,14 +83,15 @@ export default function Home(){
         });
     };
 
-    React.useEffect(() => {
-        getUser();
-        // if(!user){
-        //     handleUser("Login");
-        // }
-    }, []);
+    // React.useEffect(() => {
+    //     getUser();
+    //     // if(!user){
+    //     //     handleUser("Login");
+    //     // }
+    // }, []);
 
     const logout = async () => {
+        console.log("Logging Out")
         setUser("Login");
         await Axios({
             method: "GET",
@@ -91,21 +102,24 @@ export default function Home(){
             //     handleUser(res.data);
             // }
             // setUserData(res.data);
-            console.log(res);
+            console.log(req.user);
+            console.log("done Logging out");
             setUser("Login");
+            // req.user = undefined;
         });
     }
-
+    
     return(
         <>
-            <Header handleUser={handleUser} userdata={user} logout={logout} getUser={getUser}/>
+            <Header handleUser={handleUser} username={user} logout={logout} getUser={getUser}/>
             <hr />
             <div className={"appBody"}>
                 <AddButton saveData={saveData} user={user}/>
                 <hr />
-                <div className={style.home}>
+                {/* {homePage ?  */}
+                <div className={style.home} > {/* onClick={(e) => handleClick(e)} */}
                     {(postList.length === 0) ?
-                        <div className={"center"}>{"No Posts Added!"}</div>
+                        <div className={"center"}><h2 className={"noPosts"}>No Posts Added!</h2></div>
                         : postList.map((post, index) => {
                             return <PostCard
                                 data={post}
@@ -118,7 +132,14 @@ export default function Home(){
                             />
                         })
                     }
-                </div>
+                </div> 
+                        {/* // : <Post 
+                        //     title={"abc"}
+                        //     description={"asdda"}  // postList.filter( ele.title === e.ta)
+                        //     id={1231}
+                        //     backFunc={handleClick}
+                        // />
+                        // } */}
             </div>
         </>
     )

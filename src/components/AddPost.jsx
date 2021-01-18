@@ -25,7 +25,7 @@ export default function AddPost(props) {
     return (
         <div>
             <Dialog open={props.open} onClose={handleClose} >
-                <DialogTitle id="form-dialog-title">Create a Form</DialogTitle>
+                <DialogTitle id="form-dialog-title">Time to Scribble</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Now that you're logged in you can add as many posts as you want!
@@ -57,8 +57,8 @@ export default function AddPost(props) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={() => handlePost(title, description, username)} color="primary">
-                        Subscribe
+                    <Button variant="contained" onClick={() => handlePost(title, description, username)} color="primary">
+                        Add
                     </Button>
                 </DialogActions>
             </Dialog>

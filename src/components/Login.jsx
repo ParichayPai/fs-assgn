@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Login(props) {
+    // console.log(props);
     // const [email, setEmail] = React.useState("");
     // const [password, setPassword] = React.useState("");
 
@@ -18,8 +19,25 @@ export default function Login(props) {
     };
 
     const loginFunc = async () => {
-        props.login() //.then(props.getUser());
-        handleClose();
+        // await Axios({
+        //     method: "POST",
+        //     data: {
+        //         username: loginUsername,
+        //         password: loginPassword,
+        //     },
+        //     withCredentials: true,
+        //     url:url+"login",
+        // })
+        // // .then(res => console.log(res))
+        //     .then(props.getUser())
+        //     // .then(window.location.reload()) 
+        //     .catch(err => console.log(err));
+
+
+        await props.login();
+        // handleClose();
+
+        //.then(props.getUser());
         // window.location.reload();
         // props.handleUserData("BOI");
         // let obj = props.getUser();
@@ -42,7 +60,6 @@ export default function Login(props) {
                         label="Username"
                         type="text"
                         fullWidth
-                        value={props.username}
                         onChange={e => props.setUsername(e.target.value)}
                     />
                     <TextField

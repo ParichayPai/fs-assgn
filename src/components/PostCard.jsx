@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Button, IconButton, Paper, Typography} from "@material-ui/core";
+import {Box, Button, Paper, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {useHistory} from "react-router-dom";
 
@@ -31,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
     user:{
         marginLeft: "auto",
         marginRight: 20,
-        marginTop:10
+        marginTop:10,
+    },
+    coloredName: {
+        color: 'grey'
     }
 }));
 
@@ -71,13 +74,16 @@ export default function PostCard(props){
                     <div className={style.titleBox} >
                         <Box className={style.header}>
                             <Typography variant="h4" className={style.title}>{title}</Typography>
-                            <Typography variant="h4" className={style.user}>{username}</Typography>
+                            <Typography variant="h5" className={style.user}>
+                                posted by {" "}
+                                <span className={style.coloredName}>{username}</span>
+                            </Typography>
                         </Box>
                     </div>
 
                     <hr/>
                     <div className={"cardBody"}>
-                        <Typography variant="h5" className={style.title}>{`${description.substring(0,30)}...`}</Typography>
+                        <Typography variant="h6" className={style.title}>{`${description.substring(0,50)}...`}</Typography>
                         <Button>
                             Read More
                         </Button>
