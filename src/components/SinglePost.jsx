@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Comment from "./Comment";
 import Axios from "axios";
 
-const backendUrl =  "https://parichay-fs-backend.herokuapp.com/api/v1/"  //"http://localhost:5000/api/v1/"    
+const backendUrl =  "https://fs-backend-parichay.herokuapp.com/api/v1/"  //"http://localhost:5000/api/v1/"    
 
 const useStyles = makeStyles(() => ({
     singleItem: {
